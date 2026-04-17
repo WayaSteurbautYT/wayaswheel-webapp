@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled, { ThemeProvider as StyledThemeProvider, createGlobalStyle } from 'styled-components';
 import { AnimatePresence } from 'framer-motion';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import WheelComponent from './components/WheelComponent';
 import MainMenu from './components/MainMenu';
 import GameModeSelection from './components/GameModeSelection';
@@ -215,6 +216,7 @@ const App = () => {
           </ThemeProvider>
         </ErrorBoundary>
       </Router>
+      <SpeedInsights />
     </StyledThemeProvider>
   );
 };

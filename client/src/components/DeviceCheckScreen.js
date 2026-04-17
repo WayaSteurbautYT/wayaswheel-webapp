@@ -213,7 +213,7 @@ const DeviceCheckScreen = () => {
   const handleContinue = () => {
     if (grokApiKey) {
       localStorage.setItem('grokApiKey', grokApiKey);
-      localStorage.setItem('selectedAIModel', 'gemini');
+      localStorage.setItem('selectedAIModel', 'grok');
       localStorage.setItem('deviceChecked', 'true');
       setScreen('main');
     }

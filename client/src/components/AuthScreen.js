@@ -628,12 +628,10 @@ const AuthScreen = () => {
           <span>OR</span>
         </Divider>
 
-        <GuestButton 
-          onClick={(e) => {
-            e.preventDefault();
-            handleGuest();
-          }}
+        <GuestButton
+          onClick={handleGuest}
           type="button"
+          disabled={loading}
         >
           Continue as Guest
         </GuestButton>

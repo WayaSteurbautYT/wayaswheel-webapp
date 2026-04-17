@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGameState } from '../context/GameStateContext';
 import ThemeSettings from './ThemeSettings';
-import Leaderboard from './Leaderboard';
 import SoundManager from '../utils/SoundManager';
 import { getDailyChallenge } from '../shared/dailyChallenges';
 
@@ -241,7 +240,6 @@ const MainMenu = ({ onOpenSettings }) => {
   const { setScreen, stats, soundEnabled, toggleSound, username } = useGameState();
   const [musicPlaying, setMusicPlaying] = React.useState(false);
   const [showThemeSettings, setShowThemeSettings] = useState(false);
-  const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [dailyChallenge, setDailyChallenge] = useState(null);
 
   useEffect(() => {
@@ -256,11 +254,6 @@ const MainMenu = ({ onOpenSettings }) => {
   const handleViewRegrets = () => {
     SoundManager.play('click');
     setScreen('view-regrets');
-  };
-
-  const handleLeaderboard = () => {
-    SoundManager.play('click');
-    setShowLeaderboard(true);
   };
 
   const handleDailyChallenge = () => {
@@ -303,9 +296,6 @@ const MainMenu = ({ onOpenSettings }) => {
       <AnimatePresence>
         {showThemeSettings && (
           <ThemeSettings onClose={() => setShowThemeSettings(false)} />
-        )}
-        {showLeaderboard && (
-          <Leaderboard onClose={() => setShowLeaderboard(false)} username={username} />
         )}
       </AnimatePresence>
 

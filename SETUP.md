@@ -116,16 +116,47 @@ curl -X POST http://localhost:5000/api/game/session \
   -d '{"username":"TestUser","gameMode":"Classic"}'
 ```
 
-## ð Production Deployment
+## ð Production Deployment with Vercel
 
-### Build for Production
-```bash
-# Build React app
-npm run build
+### Deploy Frontend to Vercel
 
-# Start production server
-npm start
-```
+1. Push code to GitHub (already done at https://github.com/WayaSteurbautYT/wayaswheel-webapp.git)
+
+2. Go to [Vercel](https://vercel.com) and sign in with GitHub
+
+3. Click "Add New Project"
+
+4. Import the `wayaswheel-webapp` repository
+
+5. Configure build settings:
+   - **Framework Preset:** Create React App
+   - **Root Directory:** `client`
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `build`
+
+6. Add environment variables in Vercel:
+   - `REACT_APP_API_URL` = your backend API URL (e.g., https://your-server-domain.com)
+   - `SUPABASE_URL` = your Supabase URL
+   - `SUPABASE_ANON_KEY` = your Supabase anon key
+
+7. Click "Deploy"
+
+### Deploy Backend (Optional)
+
+For the Node.js backend, you can use:
+- **Render** (free tier)
+- **Railway** ($5/month)
+- **Heroku** ($5/month)
+
+Or deploy to Vercel as a serverless function (requires code restructuring).
+
+### Add Custom Domain (Optional)
+
+1. In Vercel project settings, go to "Domains"
+2. Add your domain (e.g., wayaswheel.com)
+3. Vercel will show DNS records to add to your domain registrar
+4. Add the records and wait for DNS propagation (5-30 minutes)
+5. Enable HTTPS (automatic on Vercel)
 
 ### Environment Variables
 Copy `.env.example` to `.env` and configure:

@@ -41,15 +41,15 @@ Priority: 10
 Value: smtp.resend.com
 ```
 
-### For Website (Netlify)
+### For Website (Vercel)
 ```
 A Record:
 Name: @
-Value: 75.2.70.75 (Netlify's IP)
+Value: 76.76.21.21
 
 CNAME Record:
 Name: www
-Value: your-site-name.netlify.app
+Value: cname.vercel-dns.com
 ```
 
 ## Step 3: Configure Supabase Domain
@@ -89,56 +89,32 @@ To:
 from: 'noreply@wayaswheel.com', // Your custom domain
 ```
 
-## Step 6: Deploy to Netlify
+## Step 6: Deploy to Vercel
 
-### Option A: Deploy via Netlify CLI
-
-1. Install Netlify CLI:
-```bash
-npm install -g netlify-cli
-```
-
-2. Login to Netlify:
-```bash
-netlify login
-```
-
-3. Build the client:
-```bash
-cd client
-npm run build
-cd ..
-```
-
-4. Deploy:
-```bash
-netlify deploy --prod
-```
-
-### Option B: Deploy via Netlify Dashboard
-
-1. Push your code to GitHub
-2. Go to [Netlify](https://netlify.com)
-3. Click "Add new site" → "Import an existing project"
-4. Connect your GitHub repository
+1. Push your code to GitHub (already done at https://github.com/WayaSteurbautYT/wayaswheel-webapp.git)
+2. Go to [Vercel](https://vercel.com) and sign in with GitHub
+3. Click "Add New Project"
+4. Import the `wayaswheel-webapp` repository
 5. Configure build settings:
-   - Build command: `cd client && npm run build`
-   - Publish directory: `client/build`
-6. Click "Deploy site"
+   - **Framework Preset:** Create React App
+   - **Root Directory:** `client`
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `build`
+6. Click "Deploy"
 
-### Add Custom Domain to Netlify
+### Add Custom Domain to Vercel
 
-1. Go to Site Settings → Domain management
-2. Click "Add custom domain"
+1. In Vercel project settings, go to "Domains"
+2. Click "Add Domain"
 3. Enter your domain: `wayaswheel.com`
-4. Netlify will show you DNS records to add
-5. Add the records to your domain registrar
-6. Wait for DNS to propagate
-7. Enable HTTPS (Netlify will provision SSL certificate automatically)
+4. Vercel will show you DNS records to add (A and CNAME)
+5. Add the records to your domain registrar (see Step 2)
+6. Wait for DNS to propagate (5-30 minutes)
+7. Vercel will automatically provision SSL certificate
 
 ## Step 7: Update Environment Variables
 
-In Netlify dashboard, add these environment variables:
+In Vercel dashboard, add these environment variables:
 
 ```
 SUPABASE_URL=your_supabase_url

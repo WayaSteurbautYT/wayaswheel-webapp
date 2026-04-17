@@ -146,7 +146,7 @@ async function sendVerificationCode(email, username, code) {
     }
 
     const emailData = {
-      from: 'onboarding@resend.dev',
+      from: 'noreply@wayaswheelofffate.eu',
       to: [email],
       subject: 'Verify Your Account - Waya\'s Wheel of Regret',
       html: emailTemplate(username, code),

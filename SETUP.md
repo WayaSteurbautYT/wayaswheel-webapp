@@ -153,7 +153,7 @@ Or deploy to Vercel as a serverless function (requires code restructuring).
 ### Add Custom Domain (Optional)
 
 1. In Vercel project settings, go to "Domains"
-2. Add your domain (e.g., wayaswheel.com)
+2. Add your domain (e.g., wayaswheelofffate.eu)
 3. Vercel will show DNS records to add to your domain registrar
 4. Add the records and wait for DNS propagation (5-30 minutes)
 5. Enable HTTPS (automatic on Vercel)
@@ -163,7 +163,7 @@ Copy `.env.example` to `.env` and configure:
 ```env
 PORT=5000
 NODE_ENV=production
-CLIENT_URL=https://yourdomain.com
+CLIENT_URL=https://wayaswheelofffate.eu
 ```
 
 ## ð File Structure After Setup

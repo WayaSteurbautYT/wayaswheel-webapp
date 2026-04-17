@@ -19,7 +19,7 @@ Recommended domain registrars:
 - Cloudflare Registrar
 - Google Domains
 
-Choose a domain name like: `wayaswheel.com` or `wayaswheel.net`
+Choose a domain name like: `wayaswheelofffate.eu`
 
 ## Step 2: Configure DNS Records
 
@@ -57,16 +57,16 @@ Value: cname.vercel-dns.com
 1. Go to [Supabase Dashboard](https://supabase.com/dashboard)
 2. Select your project
 3. Go to Settings → Authentication → Site URL
-4. Add your domain: `https://wayaswheel.com` (or your chosen domain)
+4. Add your domain: `https://wayaswheelofffate.eu` (or your chosen domain)
 5. Add redirect URLs for development:
    - `http://localhost:3000`
-   - `https://wayaswheel.com`
+   - `https://wayaswheelofffate.eu`
 
 ## Step 4: Configure Resend Domain
 
 1. Go to [Resend Dashboard](https://resend.com/domains)
 2. Click "Add Domain"
-3. Enter your domain: `wayaswheel.com`
+3. Enter your domain: `wayaswheelofffate.eu`
 4. Resend will show you DNS records to add (TXT, MX, CNAME)
 5. Add these records to your domain registrar
 6. Wait for DNS to propagate (usually 5-30 minutes)
@@ -86,7 +86,7 @@ from: 'onboarding@resend.dev',
 
 To:
 ```javascript
-from: 'noreply@wayaswheel.com', // Your custom domain
+from: 'noreply@wayaswheelofffate.eu', // Your custom domain
 ```
 
 ## Step 6: Deploy to Vercel
@@ -106,7 +106,7 @@ from: 'noreply@wayaswheel.com', // Your custom domain
 
 1. In Vercel project settings, go to "Domains"
 2. Click "Add Domain"
-3. Enter your domain: `wayaswheel.com`
+3. Enter your domain: `wayaswheelofffate.eu`
 4. Vercel will show you DNS records to add (A and CNAME)
 5. Add the records to your domain registrar (see Step 2)
 6. Wait for DNS to propagate (5-30 minutes)

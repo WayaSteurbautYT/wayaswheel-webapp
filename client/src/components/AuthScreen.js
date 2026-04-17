@@ -629,7 +629,10 @@ const AuthScreen = () => {
         </Divider>
 
         <GuestButton
-          onClick={handleGuest}
+          onClick={(e) => {
+            e.preventDefault();
+            handleGuest();
+          }}
           type="button"
           disabled={loading}
         >

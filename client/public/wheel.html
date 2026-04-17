@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waya's Wheel of Regret - Working Version</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(ellipse at center, rgba(255, 0, 0, 0.1) 0%, transparent 70%);
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ff0000, #cc0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .wheel-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 30px auto;
+        }
+
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                #ff0000 0deg 30deg,
+                #000 30deg 60deg,
+                #ff0000 60deg 90deg,
+                #000 90deg 120deg,
+                #ff0000 120deg 150deg,
+                #000 150deg 180deg,
+                #ff0000 180deg 210deg,
+                #000 210deg 240deg,
+                #ff0000 240deg 270deg,
+                #000 270deg 300deg,
+                #ff0000 300deg 330deg,
+                #000 330deg 360deg
+            );
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+            animation: spin 10s linear infinite;
+            position: relative;
+        }
+
+        .wheel::before {
+            content: 'W';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff0000;
+            background: #000;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #ff0000;
+        }
+
+        .pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 40px solid #ff0000;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8));
+            z-index: 10;
+        }
+
+        .input-section {
+            background: linear-gradient(135deg, rgba(26, 26, 31, 0.9), rgba(0, 0, 0, 0.9));
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            max-width: 500px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .question-input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .spin-button {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(45deg, #ff0000, #cc0000);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .spin-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3);
+        }
+
+        .result {
+            background: linear-gradient(135deg, rgba(26, 26, 31, 0.95), rgba(0, 0, 0, 0.95));
+            border: 2px solid rgba(255, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            max-width: 500px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+
+        .result-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #ff0000;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .wheel-result {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff0000;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .success {
+            color: #4CAF50;
+            border-color: #4CAF50;
+        }
+
+        .error {
+            color: #f44336;
+            border-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">ð Waya's Wheel of Regret ð</h1>
+        
+        <div class="input-section">
+            <input type="text" class="question-input" id="questionInput" placeholder="What question troubles your soul?" maxlength="200">
+            <button class="spin-button" onclick="spinWheel()">ð SPIN THE WHEEL ð</button>
+        </div>
+
+        <div class="wheel-container">
+            <div class="pointer"></div>
+            <div class="wheel" id="wheel"></div>
+        </div>
+
+        <div class="result" id="result">
+            <h2 class="result-title">The Wheel Has Spoken</h2>
+            <div class="wheel-result" id="wheelResult"></div>
+        </div>
+
+        <div class="status" id="status"></div>
+    </div>
+
+    <script>
+        const segments = [
+            "YES", "NO", "MAYBE", "DO IT", "DON'T", "ASK AGAIN",
+            "NEVER", "ALWAYS", "SOMETIMES", "NOT NOW", "LATER", "FORGET IT"
+        ];
+
+        let isSpinning = false;
+
+        function spinWheel() {
+            if (isSpinning) return;
+            
+            const question = document.getElementById('questionInput').value.trim();
+            if (!question) {
+                showStatus('Please enter a question first!', 'error');
+                return;
+            }
+
+            isSpinning = true;
+            document.getElementById('result').style.display = 'none';
+            showStatus('Spinning the wheel...', 'success');
+
+            const wheel = document.getElementById('wheel');
+            wheel.style.animation = 'spin 3s ease-out';
+
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * segments.length);
+                const result = segments[randomIndex];
+                
+                wheel.style.animation = 'none';
+                document.getElementById('wheelResult').textContent = result;
+                document.getElementById('result').style.display = 'block';
+                showStatus('The wheel has spoken!', 'success');
+                isSpinning = false;
+            }, 3000);
+        }
+
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type}`;
+            setTimeout(() => {
+                status.textContent = '';
+                status.className = 'status';
+            }, 3000);
+        }
+
+        // Test backend connection
+        fetch('http://localhost:5000/api/health')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Backend connected:', data);
+                showStatus('Backend connected successfully!', 'success');
+            })
+            .catch(error => {
+                console.log('Backend not available:', error);
+                showStatus('Backend not connected - using standalone mode', 'error');
+            });
+    </script>
+</body>
+</html>

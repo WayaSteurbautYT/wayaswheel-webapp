@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download Waya's Wheel of Regret</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #000000 0%, #1a1a1f 50%, #000000 100%);
+      color: #ffffff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 50% 20%, rgba(255, 0, 0, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 50% 80%, rgba(255, 0, 0, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    h1 {
+      font-size: 4rem;
+      font-weight: bold;
+      color: #ff0000;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+    }
+
+    .subtitle {
+      font-size: 1.5rem;
+      opacity: 0.8;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .download-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 40px 0;
+    }
+
+    .download-card {
+      background: rgba(26, 26, 31, 0.8);
+      border: 2px solid rgba(255, 0, 0, 0.3);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .download-card:hover {
+      border-color: #ff0000;
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(255, 0, 0, 0.3);
+    }
+
+    .download-card h2 {
+      font-size: 2rem;
+      color: #ff0000;
+      margin-bottom: 20px;
+    }
+
+    .download-card p {
+      margin-bottom: 30px;
+      opacity: 0.8;
+      line-height: 1.6;
+    }
+
+    .features {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 30px;
+    }
+
+    .features li {
+      padding: 10px 0;
+      padding-left: 30px;
+      position: relative;
+    }
+
+    .features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #ff0000;
+      font-weight: bold;
+    }
+
+    .download-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+      color: #ffffff;
+      padding: 15px 40px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(255, 0, 0, 0.3);
+    }
+
+    .download-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(255, 0, 0, 0.5);
+    }
+
+    .download-btn.secondary {
+      background: transparent;
+      border: 2px solid #ff0000;
+    }
+
+    .download-btn.secondary:hover {
+      background: rgba(255, 0, 0, 0.2);
+    }
+
+    .system-requirements {
+      background: rgba(26, 26, 31, 0.8);
+      border: 2px solid rgba(255, 0, 0, 0.3);
+      border-radius: 20px;
+      padding: 40px;
+      margin: 40px 0;
+      backdrop-filter: blur(10px);
+    }
+
+    .system-requirements h2 {
+      font-size: 2rem;
+      color: #ff0000;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .req-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .req-item h3 {
+      color: #ffffff;
+      margin-bottom: 15px;
+    }
+
+    .req-item ul {
+      list-style: none;
+    }
+
+    .req-item li {
+      padding: 8px 0;
+      opacity: 0.8;
+    }
+
+    .steam-section {
+      text-align: center;
+      padding: 60px 20px;
+      background: rgba(26, 26, 31, 0.8);
+      border: 2px solid rgba(255, 0, 0, 0.3);
+      border-radius: 20px;
+      margin: 40px 0;
+      backdrop-filter: blur(10px);
+    }
+
+    .steam-section h2 {
+      font-size: 2.5rem;
+      color: #ff0000;
+      margin-bottom: 20px;
+    }
+
+    .steam-section p {
+      margin-bottom: 30px;
+      opacity: 0.8;
+    }
+
+    .steam-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #1b2838 0%, #2a475e 100%);
+      padding: 15px 30px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      opacity: 0.6;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #ff0000;
+      color: #ffffff;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      margin-bottom: 15px;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .download-section {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="badge">FREE TO PLAY</span>
+      <h1>Waya's Wheel of Regret</h1>
+      <p class="subtitle">Ask your question and let fate decide... Now with AI-powered multiplayer!</p>
+    </header>
+
+    <section class="download-section">
+      <div class="platform-cards">
+        <div class="platform-card">
+          <div class="platform-icon">🌐</div>
+          <h3>Web Version</h3>
+          <p>Play directly in your browser. No download required.</p>
+          <ul class="features">
+            <li>Instant access</li>
+            <li>Automatic updates</li>
+            <li>Cross-platform</li>
+            <li>Cloud AI support</li>
+          </ul>
+          <a href="#" class="download-btn">Play Now</a>
+        </div>
+
+        <div class="platform-card featured">
+          <div class="platform-icon">💻</div>
+          <h3>Desktop App</h3>
+          <p>Native Windows application with local Qwen 3.5 AI.</p>
+          <ul class="features">
+            <li>Local Qwen 3.5 AI (256K context)</li>
+            <li>Vision support included</li>
+            <li>Offline mode</li>
+            <li>One-click installer</li>
+          </ul>
+          <a href="./dist/Waya's Wheel of Regret Setup 1.0.0.exe" class="download-btn">Download for Windows</a>
+          <p class="download-info">~150 MB • One-click installer • Windows 10+</p>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-icon">🎮</div>
+          <h3>Steam Version</h3>
+          <p>Full Steam integration with achievements.</p>
+          <ul class="features">
+            <li>Steam achievements</li>
+            <li>Cloud saves</li>
+            <li>Trading cards</li>
+            <li>Community features</li>
+          </ul>
+          <a href="#" class="download-btn disabled">Coming Soon</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="system-requirements">
+      <h2>⚙️ System Requirements</h2>
+      <div class="req-grid">
+        <div class="req-item">
+          <h3>Minimum (Web)</h3>
+          <ul>
+            <li>Modern web browser</li>
+            <li>Stable internet connection</li>
+            <li>JavaScript enabled</li>
+          </ul>
+        </div>
+        <div class="req-item">
+          <h3>Minimum (Desktop - Cloud AI)</h3>
+          <ul>
+            <li>Windows 10/11 or macOS 10.14+</li>
+            <li>4GB RAM</li>
+            <li>2GB free disk space</li>
+            <li>Stable internet connection</li>
+          </ul>
+        </div>
+        <div class="req-item">
+          <h3>Recommended (Desktop - Local AI)</h3>
+          <ul>
+            <li>Windows 10/11 or macOS 10.14+</li>
+            <li>16GB RAM</li>
+            <li>10GB free disk space</li>
+            <li>GPU with 4GB VRAM (optional)</li>
+            <li>Ollama installed</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="steam-section">
+      <h2>🚀 Wishlist on Steam</h2>
+      <p>Be the first to know when the Steam version launches. Get exclusive achievements and Steam Workshop support for custom game modes, endings, and more!</p>
+      <div class="steam-badge">
+        <span style="font-size: 2rem;">🎮</span>
+      </div>
+      <br>
+      <a href="#" class="download-btn" style="margin-top: 20px;">Wishlist on Steam</a>
+    </section>
+
+    <footer>
+      <p>© 2024 Waya's Wheel of Regret. All rights reserved.</p>
+      <p>Made with 🔴 and 💀</p>
+    </footer>
+  </div>
+</body>
+</html>

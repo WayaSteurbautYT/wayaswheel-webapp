@@ -1,0 +1,17 @@
+{
+  "name": "wayas-wheel-of-regret-web",
+  "version": "1.0.0",
+  "description": "Full-featured web app version of Waya's Wheel of Regret Unity game",
+  "main": "server/index.js",
+  "scripts": {
+    "install-all": "npm install && cd client && npm install && cd ../server && npm install",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm start",
+    "build": "cd client && npm run build",
+    "start": "cd server && npm start",
+    "dev": "start cmd /k \"npm run server\" && start cmd /k \"npm run client\""
+  },
+  "keywords": ["wheel", "regret", "game", "react", "node", "unity"],
+  "author": "Waya",
+  "license": "MIT"
+}

@@ -1,7 +1,7 @@
 // Configuration file for the web app
 
-export const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://wayaswheel-webapp-1.onrender.com';
-export const WS_BASE_URL = process.env.REACT_APP_WS_URL || 'wss://wayaswheel-webapp-1.onrender.com';
+export const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://wayaswheel-webapp-2.onrender.com';
+export const WS_BASE_URL = process.env.REACT_APP_WS_URL || 'wss://wayaswheel-webapp-2.onrender.com';
 
 export const API_ENDPOINTS = {
   AUTH: {

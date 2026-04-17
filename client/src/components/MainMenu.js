@@ -237,7 +237,7 @@ const ChallengeMeta = styled(motion.p)`
 `;
 
 const MainMenu = ({ onOpenSettings }) => {
-  const { setScreen, stats, soundEnabled, toggleSound, username } = useGameState();
+  const { setScreen, stats, soundEnabled, toggleSound } = useGameState();
   const [musicPlaying, setMusicPlaying] = React.useState(false);
   const [showThemeSettings, setShowThemeSettings] = useState(false);
   const [dailyChallenge, setDailyChallenge] = useState(null);

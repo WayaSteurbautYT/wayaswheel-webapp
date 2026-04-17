@@ -180,6 +180,18 @@ router.post('/generate-response', async (req, res) => {
       });
     }
 
+    // Use environment variable as fallback if no API key provided
+    let finalApiKey = apiKey;
+    if (!finalApiKey) {
+      if (model === 'grok') {
+        finalApiKey = process.env.GROK_API_KEY;
+      } else if (model === 'gemini') {
+        finalApiKey = process.env.GEMINI_API_KEY;
+      } else if (model === 'openai') {
+        finalApiKey = process.env.OPENAI_API_KEY;
+      }
+    }
+
     // Build prompt with personality context
     let prompt = `You are a mystical wheel of fortune AI with deep cultural knowledge. A user asked: "${question}". The wheel chose: "${result}" with a doom level of ${doomLevel}%.`;
     
@@ -208,7 +220,7 @@ CRITICAL: Analyze this identity deeply:
 Keep it under 150 words.`;
 
     console.log('Generating AI response with personality:', username);
-    const response = await aiTools.generateText(prompt, 'dramatic', model, apiKey);
+    const response = await aiTools.generateText(prompt, 'dramatic', model, finalApiKey);
     console.log('AI response:', response);
 
     res.json({
@@ -271,6 +283,18 @@ router.post('/generate-spin-choices', async (req, res) => {
       });
     }
 
+    // Use environment variable as fallback if no API key provided
+    let finalApiKey = apiKey;
+    if (!finalApiKey) {
+      if (model === 'grok') {
+        finalApiKey = process.env.GROK_API_KEY;
+      } else if (model === 'gemini') {
+        finalApiKey = process.env.GEMINI_API_KEY;
+      } else if (model === 'openai') {
+        finalApiKey = process.env.OPENAI_API_KEY;
+      }
+    }
+
     // Build prompt with personality context
     let prompt = `You are a mystical wheel of fortune AI with deep cultural knowledge. Generate 8 possible wheel segment choices for a question: "${question}"`;
     
@@ -307,7 +331,7 @@ The choices should be:
 Return ONLY the JSON array, no other text.`;
 
     console.log('Generating spin choices with personality:', username);
-    const response = await aiTools.generateText(prompt, 'creative', model, apiKey);
+    const response = await aiTools.generateText(prompt, 'creative', model, finalApiKey);
     console.log('AI response for spin choices:', response);
 
     let choices;
@@ -541,7 +565,19 @@ router.post('/generate-text', async (req, res) => {
       });
     }
 
-    const result = await aiTools.generateText(prompt, style, model, apiKey);
+    // Use environment variable as fallback if no API key provided
+    let finalApiKey = apiKey;
+    if (!finalApiKey) {
+      if (model === 'grok') {
+        finalApiKey = process.env.GROK_API_KEY;
+      } else if (model === 'gemini') {
+        finalApiKey = process.env.GEMINI_API_KEY;
+      } else if (model === 'openai') {
+        finalApiKey = process.env.OPENAI_API_KEY;
+      }
+    }
+
+    const result = await aiTools.generateText(prompt, style, model, finalApiKey);
 
     res.json({
       success: true,

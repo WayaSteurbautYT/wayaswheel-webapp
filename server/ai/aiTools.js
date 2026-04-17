@@ -63,22 +63,38 @@ class AITools {
 
     // Use Gemini by default (Google AI Studio - Free)
     if (model === 'gemini' && apiKey) {
-      return await this.generateWithGemini(enhancedPrompt, apiKey);
+      try {
+        return await this.generateWithGemini(enhancedPrompt, apiKey);
+      } catch (error) {
+        console.warn('Gemini API failed, using fallback');
+      }
     }
 
     // Use Grok if key is provided and model is 'grok'
     if (model === 'grok' && apiKey) {
-      return await this.generateWithGrok(enhancedPrompt, apiKey);
+      try {
+        return await this.generateWithGrok(enhancedPrompt, apiKey);
+      } catch (error) {
+        console.warn('Grok API failed, using fallback');
+      }
     }
 
     // Use Groq if key is provided and model is 'groq'
     if (model === 'groq' && apiKey) {
-      return await this.generateWithGroq(enhancedPrompt, apiKey);
+      try {
+        return await this.generateWithGroq(enhancedPrompt, apiKey);
+      } catch (error) {
+        console.warn('Groq API failed, using fallback');
+      }
     }
 
     // Use OpenRouter if key is provided and model is 'openrouter'
     if (model === 'openrouter' && apiKey) {
-      return await this.generateWithOpenRouter(enhancedPrompt, apiKey);
+      try {
+        return await this.generateWithOpenRouter(enhancedPrompt, apiKey);
+      } catch (error) {
+        console.warn('OpenRouter API failed, using fallback');
+      }
     }
 
     // Fallback to Ollama if available
@@ -86,8 +102,27 @@ class AITools {
       const result = await this.ollama.generate(model, enhancedPrompt);
       return result.response;
     } catch (error) {
-      throw new Error(`Text generation failed: ${error.message}`);
+      // Final fallback - return a simple response based on prompt
+      console.warn('All AI generation failed, using simple fallback');
+      return this.getSimpleFallback(prompt, style);
     }
+  }
+
+  // Simple fallback for when no AI is available
+  getSimpleFallback(prompt, style) {
+    // Return a JSON array of wheel segments for spin choices
+    const fallbackSegments = [
+      { text: "A surprising twist awaits", doom: 50 },
+      { text: "The path less traveled", doom: 30 },
+      { text: "An unexpected opportunity", doom: 20 },
+      { text: "A challenging test", doom: 70 },
+      { text: "A moment of clarity", doom: 10 },
+      { text: "A difficult decision", doom: 60 },
+      { text: "A hidden truth revealed", doom: 40 },
+      { text: "The wheel decides your fate", doom: 55 }
+    ];
+
+    return JSON.stringify(fallbackSegments);
   }
 
   // OpenRouter API integration

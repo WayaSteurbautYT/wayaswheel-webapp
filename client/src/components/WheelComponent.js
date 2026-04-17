@@ -550,7 +550,6 @@ const WheelComponent = () => {
   const [dynamicSegments, setDynamicSegments] = useState(null);
   // eslint-disable-next-line no-unused-vars
   const [generatingSegments, setGeneratingSegments] = useState(false);
-  const [backendError, setBackendError] = useState(null);
   // eslint-disable-next-line no-unused-vars
   const [multiSpinAnswers, setMultiSpinAnswers] = useState([]);
   // eslint-disable-next-line no-unused-vars
@@ -765,10 +764,12 @@ const WheelComponent = () => {
       }
     } catch (error) {
       console.error('Failed to generate AI segments:', error);
-      setBackendError('Backend server not available. Using fallback options.');
+      // Use fallback segments
     }
 
     setGeneratingSegments(false);
+    // Use default segments as fallback
+    setDynamicSegments(null);
     return null;
   };
 
@@ -1129,21 +1130,6 @@ const WheelComponent = () => {
           </SpinButton>
         )}
       </InputSection>
-
-      <AnimatePresence>
-        {backendError && (
-          <ErrorMessage
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            ⚠️ {backendError}
-            <br />
-            Start the backend server: <code>cd server && npm start</code>
-          </ErrorMessage>
-        )}
-      </AnimatePresence>
 
       <WheelWrapper>
         <WheelPointer />

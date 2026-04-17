@@ -176,6 +176,26 @@ const SelectInput = styled.select`
   }
 `;
 
+const TextInput = styled.input`
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 10px 15px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  min-width: 200px;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: #ff0000;
+  }
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+  }
+`;
+
 const SliderInput = styled.input`
   -webkit-appearance: none;
   width: 150px;
@@ -258,6 +278,7 @@ const SettingsPage = ({ onClose }) => {
     darkMode: true,
     notifications: true,
     aiModel: 'qwen3.5:4b',
+    apiKey: '',
     language: 'en',
     theme: 'default'
   });
@@ -277,6 +298,13 @@ const SettingsPage = ({ onClose }) => {
   const handleSave = () => {
     // Save settings to localStorage
     localStorage.setItem('wheelSettings', JSON.stringify(settings));
+    // Save API key and model for AI
+    if (settings.apiKey) {
+      localStorage.setItem('grokApiKey', settings.apiKey);
+    }
+    if (settings.aiModel) {
+      localStorage.setItem('selectedAIModel', settings.aiModel);
+    }
     // Apply settings
     if (settings.soundEnabled !== soundEnabled) {
       toggleSound();
@@ -294,7 +322,8 @@ const SettingsPage = ({ onClose }) => {
       showHistory: true,
       darkMode: true,
       notifications: true,
-      aiModel: 'qwen3.5:4b',
+      aiModel: 'grok',
+      apiKey: '',
       language: 'en',
       theme: 'default'
     });
@@ -305,6 +334,15 @@ const SettingsPage = ({ onClose }) => {
     const savedSettings = localStorage.getItem('wheelSettings');
     if (savedSettings) {
       setSettings(JSON.parse(savedSettings));
+    }
+    // Load API key and model from localStorage if not in settings
+    const apiKey = localStorage.getItem('grokApiKey');
+    const selectedModel = localStorage.getItem('selectedAIModel');
+    if (apiKey) {
+      setSettings(prev => ({ ...prev, apiKey }));
+    }
+    if (selectedModel) {
+      setSettings(prev => ({ ...prev, aiModel: selectedModel }));
     }
   }, []);
 
@@ -385,7 +423,7 @@ const SettingsPage = ({ onClose }) => {
 
         <SettingSection>
           <SectionTitle>🤖 AI Settings</SectionTitle>
-          
+
           <SettingItem>
             <div>
               <SettingLabel>AI Model</SettingLabel>
@@ -395,13 +433,24 @@ const SettingsPage = ({ onClose }) => {
               value={settings.aiModel}
               onChange={(e) => handleSelectChange('aiModel', e.target.value)}
             >
-              <option value="qwen3.5:0.8b">Qwen 3.5 0.8B (1.0GB)</option>
-              <option value="qwen3.5:2b">Qwen 3.5 2B (2.7GB)</option>
-              <option value="qwen3.5:4b">Qwen 3.5 4B (3.4GB)</option>
-              <option value="qwen3.5:latest">Qwen 3.5 9B (6.6GB)</option>
-              <option value="qwen3.5:cloud">Qwen 3.5 Cloud</option>
-              <option value="qwen3.5:397b-cloud">Qwen 3.5 397B Cloud</option>
+              <option value="grok">Grok (xAI)</option>
+              <option value="gemini">Gemini (Google)</option>
+              <option value="openai">OpenAI GPT</option>
+              <option value="groq">Groq</option>
             </SelectInput>
+          </SettingItem>
+
+          <SettingItem>
+            <div>
+              <SettingLabel>API Key</SettingLabel>
+              <SettingDescription>Enter your API key for the selected AI model</SettingDescription>
+            </div>
+            <TextInput
+              type="password"
+              placeholder="Enter API key..."
+              value={settings.apiKey}
+              onChange={(e) => handleSelectChange('apiKey', e.target.value)}
+            />
           </SettingItem>
         </SettingSection>
 

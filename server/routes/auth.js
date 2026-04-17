@@ -337,25 +337,54 @@ router.post('/check-session', async (req, res) => {
     }
 
     // Check if session exists and is not expired
-    const { data: session, error: sessionError } = await supabase.adminClient
-      .from('logged_in')
-      .select(`
-        id,
-        user_id,
-        expires_at,
-        is_guest,
-        profiles (
+    let session;
+    let sessionError;
+    try {
+      const result = await supabase.adminClient
+        .from('logged_in')
+        .select(`
           id,
-          username,
-          total_spins,
-          total_doom,
-          games_played
-        )
-      `)
-      .eq('session_token', token)
-      .single();
+          user_id,
+          expires_at,
+          is_guest,
+          profiles (
+            id,
+            username,
+            total_spins,
+            total_doom,
+            games_played
+          )
+        `)
+        .eq('session_token', token)
+        .single();
+      session = result.data;
+      sessionError = result.error;
+    } catch (error) {
+      sessionError = error;
+    }
 
     if (sessionError || !session) {
+      // If logged_in table doesn't exist, check localStorage for guest tokens
+      if (token.startsWith('guest_')) {
+        const userStr = localStorage?.getItem('user');
+        if (userStr) {
+          const user = JSON.parse(userStr);
+          if (user.is_guest && token === localStorage?.getItem('token')) {
+            return res.json({
+              success: true,
+              user: {
+                id: null,
+                email: user.username,
+                user_metadata: {
+                  username: user.username
+                }
+              },
+              is_guest: true,
+              token: token
+            });
+          }
+        }
+      }
       return res.status(401).json({
         error: 'Invalid session'
       });
@@ -364,10 +393,14 @@ router.post('/check-session', async (req, res) => {
     // Check if session is expired
     if (new Date(session.expires_at) < new Date()) {
       // Remove expired session
-      await supabase.adminClient
-        .from('logged_in')
-        .delete()
-        .eq('id', session.id);
+      try {
+        await supabase.adminClient
+          .from('logged_in')
+          .delete()
+          .eq('id', session.id);
+      } catch (error) {
+        console.warn('Failed to remove expired session:', error.message);
+      }
 
       return res.status(401).json({
         error: 'Session expired'
@@ -375,13 +408,17 @@ router.post('/check-session', async (req, res) => {
     }
 
     // Update last_active
-    await supabase.adminClient
-      .from('logged_in')
-      .update({
-        last_active: new Date(),
-        expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
-      })
-      .eq('id', session.id);
+    try {
+      await supabase.adminClient
+        .from('logged_in')
+        .update({
+          last_active: new Date(),
+          expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
+        })
+        .eq('id', session.id);
+    } catch (error) {
+      console.warn('Failed to update session last_active:', error.message);
+    }
 
     res.json({
       success: true,

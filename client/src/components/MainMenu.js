@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGameState } from '../context/GameStateContext';
 import ThemeSettings from './ThemeSettings';
+import Leaderboard from './Leaderboard';
 import SoundManager from '../utils/SoundManager';
+import { getDailyChallenge } from '../shared/dailyChallenges';
 
 const MenuContainer = styled.div`
   display: flex;
@@ -201,6 +203,38 @@ const SettingsButton = styled(motion.button)`
     border-color: #ff0000;
     transform: scale(1.1);
   }
+`;
+
+const DailyChallengeCard = styled(motion.div)`
+  background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(0, 0, 0, 0.8));
+  border: 2px solid rgba(255, 0, 0, 0.5);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  max-width: 500px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+`;
+
+const ChallengeTitle = styled(motion.h3)`
+  color: #ff0000;
+  font-size: 1.5rem;
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+`;
+
+const ChallengeQuestion = styled(motion.p)`
+  color: white;
+  font-size: 1.1rem;
+  margin: 0 0 15px 0;
+  font-style: italic;
+`;
+
+const ChallengeMeta = styled(motion.p)`
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin: 0;
 `;
 
 const MainMenu = ({ onOpenSettings }) => {

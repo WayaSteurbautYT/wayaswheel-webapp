@@ -1,11 +1,10 @@
 services:
   - type: web
     name: wayaswheel-backend
-    runtime: node
+    env: docker
     plan: free
-    rootDir: server
-    buildCommand: npm install
-    startCommand: node index.js
+    dockerContext: ./server
+    dockerfilePath: ./server/Dockerfile
     envVars:
       - key: PORT
         value: 5000

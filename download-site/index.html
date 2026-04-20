@@ -1,345 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Download Waya's Wheel of Regret</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #000000 0%, #1a1a1f 50%, #000000 100%);
-      color: #ffffff;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        radial-gradient(circle at 20% 50%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 50%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 50% 20%, rgba(255, 0, 0, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 50% 80%, rgba(255, 0, 0, 0.05) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .container {
-      position: relative;
-      z-index: 2;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    header {
-      text-align: center;
-      padding: 60px 20px;
-    }
-
-    h1 {
-      font-size: 4rem;
-      font-weight: bold;
-      color: #ff0000;
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      margin-bottom: 20px;
-      text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
-    }
-
-    .subtitle {
-      font-size: 1.5rem;
-      opacity: 0.8;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .download-section {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      padding: 40px 0;
-    }
-
-    .download-card {
-      background: rgba(26, 26, 31, 0.8);
-      border: 2px solid rgba(255, 0, 0, 0.3);
-      border-radius: 20px;
-      padding: 40px;
-      text-align: center;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-    }
-
-    .download-card:hover {
-      border-color: #ff0000;
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(255, 0, 0, 0.3);
-    }
-
-    .download-card h2 {
-      font-size: 2rem;
-      color: #ff0000;
-      margin-bottom: 20px;
-    }
-
-    .download-card p {
-      margin-bottom: 30px;
-      opacity: 0.8;
-      line-height: 1.6;
-    }
-
-    .features {
-      list-style: none;
-      text-align: left;
-      margin-bottom: 30px;
-    }
-
-    .features li {
-      padding: 10px 0;
-      padding-left: 30px;
-      position: relative;
-    }
-
-    .features li::before {
-      content: '✓';
-      position: absolute;
-      left: 0;
-      color: #ff0000;
-      font-weight: bold;
-    }
-
-    .download-btn {
-      display: inline-block;
-      background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
-      color: #ffffff;
-      padding: 15px 40px;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 10px 20px rgba(255, 0, 0, 0.3);
-    }
-
-    .download-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 30px rgba(255, 0, 0, 0.5);
-    }
-
-    .download-btn.secondary {
-      background: transparent;
-      border: 2px solid #ff0000;
-    }
-
-    .download-btn.secondary:hover {
-      background: rgba(255, 0, 0, 0.2);
-    }
-
-    .system-requirements {
-      background: rgba(26, 26, 31, 0.8);
-      border: 2px solid rgba(255, 0, 0, 0.3);
-      border-radius: 20px;
-      padding: 40px;
-      margin: 40px 0;
-      backdrop-filter: blur(10px);
-    }
-
-    .system-requirements h2 {
-      font-size: 2rem;
-      color: #ff0000;
-      margin-bottom: 30px;
-      text-align: center;
-    }
-
-    .req-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-    }
-
-    .req-item h3 {
-      color: #ffffff;
-      margin-bottom: 15px;
-    }
-
-    .req-item ul {
-      list-style: none;
-    }
-
-    .req-item li {
-      padding: 8px 0;
-      opacity: 0.8;
-    }
-
-    .steam-section {
-      text-align: center;
-      padding: 60px 20px;
-      background: rgba(26, 26, 31, 0.8);
-      border: 2px solid rgba(255, 0, 0, 0.3);
-      border-radius: 20px;
-      margin: 40px 0;
-      backdrop-filter: blur(10px);
-    }
-
-    .steam-section h2 {
-      font-size: 2.5rem;
-      color: #ff0000;
-      margin-bottom: 20px;
-    }
-
-    .steam-section p {
-      margin-bottom: 30px;
-      opacity: 0.8;
-    }
-
-    .steam-badge {
-      display: inline-block;
-      background: linear-gradient(135deg, #1b2838 0%, #2a475e 100%);
-      padding: 15px 30px;
-      border-radius: 10px;
-      margin-top: 20px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      opacity: 0.6;
-    }
-
-    .badge {
-      display: inline-block;
-      background: #ff0000;
-      color: #ffffff;
-      padding: 5px 15px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      margin-bottom: 15px;
-    }
-
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2.5rem;
-      }
-
-      .download-section {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WayaWheel - The Ultimate Content Wheel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .gradient-text { background: linear-gradient(90deg, #ff00cc, #3333ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-glow { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(120, 50, 255, 0.3) 0%, transparent 70%); filter: blur(40px); z-index: -1; }
+    </style>
 </head>
-<body>
-  <div class="container">
-    <header>
-      <span class="badge">FREE TO PLAY</span>
-      <h1>Waya's Wheel of Regret</h1>
-      <p class="subtitle">Ask your question and let fate decide... Now with AI-powered multiplayer!</p>
-    </header>
+<body class="bg-[#0a0a0a] text-white overflow-x-hidden">
 
-    <section class="download-section">
-      <div class="platform-cards">
-        <div class="platform-card">
-          <div class="platform-icon">🌐</div>
-          <h3>Web Version</h3>
-          <p>Play directly in your browser. No download required.</p>
-          <ul class="features">
-            <li>Instant access</li>
-            <li>Automatic updates</li>
-            <li>Cross-platform</li>
-            <li>Cloud AI support</li>
-          </ul>
-          <a href="#" class="download-btn">Play Now</a>
-        </div>
+    <!-- Hero Glows -->
+    <div class="hero-glow top-0 left-0"></div>
+    <div class="hero-glow bottom-0 right-0"></div>
 
-        <div class="platform-card featured">
-          <div class="platform-icon">💻</div>
-          <h3>Desktop App</h3>
-          <p>Native Windows application with local Qwen 3.5 AI.</p>
-          <ul class="features">
-            <li>Local Qwen 3.5 AI (256K context)</li>
-            <li>Vision support included</li>
-            <li>Offline mode</li>
-            <li>One-click installer</li>
-          </ul>
-          <a href="./dist/Waya's Wheel of Regret Setup 1.0.0.exe" class="download-btn">Download for Windows</a>
-          <p class="download-info">~150 MB • One-click installer • Windows 10+</p>
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass py-4 px-6 flex justify-between items-center">
+        <div class="text-2xl font-extrabold tracking-tighter">Waya<span class="gradient-text">Wheel</span></div>
+        <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+            <a href="#features" class="hover:text-white transition-colors">Features</a>
+            <a href="#docs" class="hover:text-white transition-colors">Documentation</a>
+            <a href="#creator" class="hover:text-white transition-colors">The Creator</a>
+            <a href="#download" class="bg-white text-black px-4 py-2 rounded-full hover:bg-gray-200 transition-colors">Download</a>
         </div>
+    </nav>
 
-        <div class="platform-card">
-          <div class="platform-icon">🎮</div>
-          <h3>Steam Version</h3>
-          <p>Full Steam integration with achievements.</p>
-          <ul class="features">
-            <li>Steam achievements</li>
-            <li>Cloud saves</li>
-            <li>Trading cards</li>
-            <li>Community features</li>
-          </ul>
-          <a href="#" class="download-btn disabled">Coming Soon</a>
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 px-6 text-center max-w-6xl mx-auto">
+        <h1 class="text-5xl md:text-8xl font-extrabold leading-tight mb-6">
+            Gamify Your <span class="gradient-text">Content</span> <br>Like a Pro.
+        </h1>
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">
+            The definitive wheel tool for YouTubers and Streamers. Randomize giveaways, decide your next challenge, or engage your community with style.
+        </p>
+        <div class="flex flex-col md:flex-row gap-4 justify-center" id="download">
+            <a href="#" class="bg-white text-black px-8 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2">
+                <i class="fa-brands fa-windows"></i> Download for Windows
+            </a>
+            <a href="#features" class="glass px-8 py-4 rounded-2xl font-bold text-lg hover:bg-white/10 transition-colors">
+                Explore Features
+            </a>
         </div>
-      </div>
+        <div class="mt-16 relative max-w-4xl mx-auto rounded-3xl border border-white/10 overflow-hidden shadow-2xl shadow-purple-500/20">
+            <img src="https://via.placeholder.com/1200x600?text=App+Showcase+Screenshot" alt="App Screenshot" class="w-full">
+        </div>
     </section>
 
-    <section class="system-requirements">
-      <h2>⚙️ System Requirements</h2>
-      <div class="req-grid">
-        <div class="req-item">
-          <h3>Minimum (Web)</h3>
-          <ul>
-            <li>Modern web browser</li>
-            <li>Stable internet connection</li>
-            <li>JavaScript enabled</li>
-          </ul>
+    <!-- Features Grid -->
+    <section id="features" class="py-20 px-6 max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4">Built for <span class="gradient-text">Performance</span></h2>
+            <p class="text-gray-400">Everything you need to make your videos more engaging.</p>
         </div>
-        <div class="req-item">
-          <h3>Minimum (Desktop - Cloud AI)</h3>
-          <ul>
-            <li>Windows 10/11 or macOS 10.14+</li>
-            <li>4GB RAM</li>
-            <li>2GB free disk space</li>
-            <li>Stable internet connection</li>
-          </ul>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="glass p-8 rounded-3xl hover:border-purple-500 transition-colors group">
+                <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center text-purple-500 mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-bolt text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Instant Setup</h3>
+                <p class="text-gray-400">No complex configurations. Download, run, and start spinning in seconds.</p>
+            </div>
+            <div class="glass p-8 rounded-3xl hover:border-blue-500 transition-colors group">
+                <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center text-blue-500 mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-palette text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Custom Themes</h3>
+                <p class="text-gray-400">Match the wheel to your brand. Change colors, fonts, and styles to fit your aesthetic.</p>
+            </div>
+            <div class="glass p-8 rounded-3xl hover:border-pink-500 transition-colors group">
+                <div class="w-12 h-12 bg-pink-500/20 rounded-xl flex items-center justify-center text-pink-500 mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-cloud text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Cloud Sync</h3>
+                <p class="text-gray-400">Save your wheel configurations and access them from anywhere with your account.</p>
+            </div>
         </div>
-        <div class="req-item">
-          <h3>Recommended (Desktop - Local AI)</h3>
-          <ul>
-            <li>Windows 10/11 or macOS 10.14+</li>
-            <li>16GB RAM</li>
-            <li>10GB free disk space</li>
-            <li>GPU with 4GB VRAM (optional)</li>
-            <li>Ollama installed</li>
-          </ul>
-        </div>
-      </div>
     </section>
 
-    <section class="steam-section">
-      <h2>🚀 Wishlist on Steam</h2>
-      <p>Be the first to know when the Steam version launches. Get exclusive achievements and Steam Workshop support for custom game modes, endings, and more!</p>
-      <div class="steam-badge">
-        <span style="font-size: 2rem;">🎮</span>
-      </div>
-      <br>
-      <a href="#" class="download-btn" style="margin-top: 20px;">Wishlist on Steam</a>
+    <!-- Documentation Section -->
+    <section id="docs" class="py-20 px-6 bg-white/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">How it <span class="gradient-text">Works</span></h2>
+                <p class="text-gray-400">Simple steps to get you started.</p>
+            </div>
+            <div class="space-y-8">
+                <div class="flex gap-6 p-6 rounded-2xl hover:bg-white/5 transition-colors">
+                    <div class="text-3xl font-bold text-purple-500">01</div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">Installation</h4>
+                        <p class="text-gray-400">Download the .exe installer from the hero section. Run the installer and follow the on-screen instructions to install WayaWheel on your Windows PC.</p>
+                    </div>
+                </div>
+                <div class="flex gap-6 p-6 rounded-2xl hover:bg-white/5 transition-colors">
+                    <div class="text-3xl font-bold text-blue-500">02</div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">Customizing the Wheel</h4>
+                        <p class="text-gray-400">Enter your segments in the settings panel. You can add as many options as you want and customize the colors for each segment to make it pop on camera.</p>
+                    </div>
+                </div>
+                <div class="flex gap-6 p-6 rounded-2xl hover:bg-white/5 transition-colors">
+                    <div class="text-3xl font-bold text-pink-500">03</div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">Recording Your Content</h4>
+                        <p class="text-gray-400">Use a screen recorder like OBS. WayaWheel is designed to be clean and distraction-free, making it perfect for overlays in your YouTube videos or Twitch streams.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <footer>
-      <p>© 2024 Waya's Wheel of Regret. All rights reserved.</p>
-      <p>Made with 🔴 and 💀</p>
+    <!-- Creator Section -->
+    <section id="creator" class="py-20 px-6 max-w-6xl mx-auto">
+        <div class="glass p-12 rounded-3xl flex flex-col md:flex-row gap-12 items-center">
+            <div class="w-48 h-48 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 p-1">
+                <img src="https://via.placeholder.com/190" alt="Waya Steurbaut" class="w-full h-full rounded-full object-cover bg-black">
+            </div>
+            <div class="flex-1 text-center md:text-left">
+                <h2 class="text-4xl font-bold mb-2">WayaCreate</h2>
+                <p class="text-xl text-gray-400 mb-6">aka <span class="text-white font-semibold">Waya Steurbaut</span></p>
+                <p class="text-gray-300 leading-relaxed mb-8">
+                    A passionate developer and creator dedicated to building tools that empower content creators. WayaCreate focuses on bridging the gap between high-end utility and user-friendly design, ensuring that YouTubers can focus on their creativity while the tools handle the heavy lifting.
+                </p>
+                <div class="flex gap-4 justify-center md:justify-start">
+                    <a href="https://github.com/WayaSteurbautYT" class="text-2xl hover:text-purple-500 transition-colors"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="text-2xl hover:text-red-500 transition-colors"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="text-2xl hover:text-blue-400 transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 px-6 text-center border-t border-white/10">
+        <p class="text-gray-500 text-sm">
+            &copy; 2026 WayaWheel. Created with &hearts; by WayaCreate.
+        </p>
     </footer>
-  </div>
+
 </body>
 </html>

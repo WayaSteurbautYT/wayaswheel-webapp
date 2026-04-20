@@ -493,8 +493,14 @@ const DoomMeter = styled.div`
   letter-spacing: 1px;
 `;
 
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+`;
+
 const ContinueButton = styled(motion.button)`
-  width: 100%;
+  flex: 2;
   padding: 15px;
   background: linear-gradient(45deg, #1a1a1f, #000000);
   border: 2px solid #ff0000;
@@ -509,6 +515,24 @@ const ContinueButton = styled(motion.button)`
     background: linear-gradient(45deg, #ff0000, #cc0000);
     color: white;
     border-color: white;
+  }
+`;
+
+const ShareButton = styled(motion.button)`
+  flex: 1;
+  padding: 15px;
+  background: linear-gradient(45deg, #333, #111);
+  border: 2px solid #666;
+  border-radius: 10px;
+  color: #ccc;
+  font-size: 1.1rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  
+  &:hover {
+    border-color: #ff0000;
+    color: #ff0000;
   }
 `;
 
@@ -711,14 +735,12 @@ const WheelComponent = () => {
     const sanitizedQuestion = sanitizeInput(questionText);
     
     setGeneratingSegments(true);
+    setQuestionError('');
     const apiKey = localStorage.getItem('grokApiKey');
     const selectedModel = localStorage.getItem('selectedAIModel') || 'gemini';
     const username = localStorage.getItem('username') || 'Player';
 
     console.log('Generating AI segments for question:', sanitizedQuestion);
-    console.log('API Key present:', !!apiKey);
-    console.log('Model:', selectedModel);
-    console.log('Username:', username);
 
     // Check cache first for offline support
     const cachedSegments = getCachedWheelSegments(sanitizedQuestion, selectedModel);
@@ -740,10 +762,8 @@ const WheelComponent = () => {
         3,
         1000
       );
-      console.log('AI response:', data);
 
       if (data.success && data.choices && data.choices.length > 0) {
-        // Convert AI choices to wheel segments with colors and doom levels
         const colors = currentTheme.colors;
         const segments = data.choices.slice(0, 8).map((choice, index) => ({
           text: choice,
@@ -752,23 +772,20 @@ const WheelComponent = () => {
           isRed: index % 2 === 0
         }));
 
-        // Cache the segments for offline use
         cacheWheelSegments(sanitizedQuestion, segments, selectedModel);
         
         setDynamicSegments(segments);
         setGeneratingSegments(false);
-        setQuestionError('');
         return segments;
       } else {
-        console.log('AI response invalid or no choices:', data);
+        setQuestionError('The AI could not generate choices for this question. Please try another.');
       }
     } catch (error) {
       console.error('Failed to generate AI segments:', error);
-      // Use fallback segments
+      setQuestionError('Connection to the void lost. Please try again.');
     }
 
     setGeneratingSegments(false);
-    // Use default segments as fallback
     setDynamicSegments(null);
     return null;
   };
@@ -1046,6 +1063,19 @@ const WheelComponent = () => {
     }
   };
 
+  const handleShare = async () => {
+    if (!selectedSegment) return;
+
+    const shareText = `🎡 WHEEL OF REGRET 🎡\n\nQuestion: ${question}\nResult: ${selectedSegment.text}\nDoom Level: ${selectedSegment.doom}%\nAI Wisdom: ${selectedSegment.answer}\n\n#WheelOfRegret #DoomWheel`;
+    
+    try {
+      await navigator.clipboard.writeText(shareText);
+      alert('Result copied to clipboard! Share your fate with the world.');
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  };
+
   // Cleanup
   useEffect(() => {
     return () => {
@@ -1210,13 +1240,22 @@ const WheelComponent = () => {
             <DoomMeter style={{ background: getDoomColor(selectedSegment.doom) }}>
               DOOM: {selectedSegment.doom}% {getDoomEmoji(selectedSegment.doom)}
             </DoomMeter>
-            <ContinueButton
-              onClick={handleContinue}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              {currentSession.isComplete ? 'View Results' : 'Next Question'}
-            </ContinueButton>
+            <ButtonGroup>
+              <ShareButton
+                onClick={handleShare}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                📤 Share
+              </ShareButton>
+              <ContinueButton
+                onClick={handleContinue}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {currentSession.isComplete ? 'View Results' : 'Next Question'}
+              </ContinueButton>
+            </ButtonGroup>
           </ResultSection>
         )}
       </AnimatePresence>

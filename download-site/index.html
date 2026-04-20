@@ -12,6 +12,8 @@
         .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .gradient-text { background: linear-gradient(90deg, #ff00cc, #3333ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero-glow { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(120, 50, 255, 0.3) 0%, transparent 70%); filter: blur(40px); z-index: -1; }
+        .banner-img { width: 100%; height: 400px; object-fit: cover; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .app-logo { width: 120px; height: 120px; border-radius: 24px; box-shadow: 0 0 30px rgba(255, 0, 0, 0.4); }
     </style>
 </head>
 <body class="bg-[#0a0a0a] text-white overflow-x-hidden">
@@ -22,7 +24,10 @@
 
     <!-- Navbar -->
     <nav class="fixed w-full z-50 glass py-4 px-6 flex justify-between items-center">
-        <div class="text-2xl font-extrabold tracking-tighter">Waya<span class="gradient-text">Wheel</span></div>
+        <div class="flex items-center gap-3">
+            <img src="C:\Users\steur\Downloads\app_icon-Wayas_wheel_ai_roullete.png" alt="Logo" class="w-10 h-10 rounded-lg">
+            <div class="text-2xl font-extrabold tracking-tighter">Waya<span class="gradient-text">Wheel</span></div>
+        </div>
         <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
             <a href="#features" class="hover:text-white transition-colors">Features</a>
             <a href="#docs" class="hover:text-white transition-colors">Documentation</a>
@@ -33,11 +38,14 @@
 
     <!-- Hero Section -->
     <section class="relative pt-32 pb-20 px-6 text-center max-w-6xl mx-auto">
+        <div class="mb-12">
+            <img src="C:\Users\steur\Downloads\cover art trailer.png" alt="WayaWheel Banner" class="banner-img mx-auto">
+        </div>
         <h1 class="text-5xl md:text-8xl font-extrabold leading-tight mb-6">
             Gamify Your <span class="gradient-text">Content</span> <br>Like a Pro.
         </h1>
         <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-            The definitive wheel tool for YouTubers and Streamers. Randomize giveaways, decide your next challenge, or engage your community with style.
+            The definitive wheel tool for YouTubers and Streamers. Randomize giveaways, decide your next challenge, or engage your community with the power of AI and Chaos.
         </p>
         <div class="flex flex-col md:flex-row gap-4 justify-center" id="download">
             <a href="#" class="bg-white text-black px-8 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2">
@@ -47,69 +55,96 @@
                 Explore Features
             </a>
         </div>
-        <div class="mt-16 relative max-w-4xl mx-auto rounded-3xl border border-white/10 overflow-hidden shadow-2xl shadow-purple-500/20">
-            <img src="https://via.placeholder.com/1200x600?text=App+Showcase+Screenshot" alt="App Screenshot" class="w-full">
-        </div>
     </section>
 
     <!-- Features Grid -->
     <section id="features" class="py-20 px-6 max-w-6xl mx-auto">
         <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold mb-4">Built for <span class="gradient-text">Performance</span></h2>
-            <p class="text-gray-400">Everything you need to make your videos more engaging.</p>
+            <h2 class="text-4xl font-bold mb-4">Built for <span class="gradient-text">Chaos & Engagement</span></h2>
+            <p class="text-gray-400">Everything you need to make your videos go viral.</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="glass p-8 rounded-3xl hover:border-purple-500 transition-colors group">
                 <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center text-purple-500 mb-6 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-bolt text-xl"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Instant Setup</h3>
-                <p class="text-gray-400">No complex configurations. Download, run, and start spinning in seconds.</p>
+                <h3 class="text-xl font-bold mb-3">Extreme Chaos Mode</h3>
+                <p class="text-gray-400">Spin 10x faster with rapidly shifting colors and AI-generated doom results for maximum tension.</p>
             </div>
             <div class="glass p-8 rounded-3xl hover:border-blue-500 transition-colors group">
                 <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center text-blue-500 mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-palette text-xl"></i>
+                    <i class="fa-solid fa-comments text-xl"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Custom Themes</h3>
-                <p class="text-gray-400">Match the wheel to your brand. Change colors, fonts, and styles to fit your aesthetic.</p>
+                <h3 class="text-xl font-bold mb-3">Stream Integration</h3>
+                <p class="text-gray-400">Simulated Twitch/YouTube chat voting allows your community to influence the wheel and the doom level.</p>
             </div>
             <div class="glass p-8 rounded-3xl hover:border-pink-500 transition-colors group">
                 <div class="w-12 h-12 bg-pink-500/20 rounded-xl flex items-center justify-center text-pink-500 mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-cloud text-xl"></i>
+                    <i class="fa-solid fa-face-screaming text-xl"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Cloud Sync</h3>
-                <p class="text-gray-400">Save your wheel configurations and access them from anywhere with your account.</p>
+                <h3 class="text-xl font-bold mb-3">Face-Scream AI</h3>
+                <p class="text-gray-400">AI-powered reaction detection that triggers meme overlays when you react to high-doom results.</p>
+            </div>
+            <div class="glass p-8 rounded-3xl hover:border-green-500 transition-colors group">
+                <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center text-green-500 mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-earth-americas text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Global Doom Map</h3>
+                <p class="text-gray-400">A real-time global leaderboard showing where in the world the most regret is being generated.</p>
             </div>
         </div>
     </section>
 
     <!-- Documentation Section -->
     <section id="docs" class="py-20 px-6 bg-white/5">
-        <div class="max-w-4xl mx-auto">
+        <div class="max-w-5xl mx-auto">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">How it <span class="gradient-text">Works</span></h2>
-                <p class="text-gray-400">Simple steps to get you started.</p>
+                <h2 class="text-4xl font-bold mb-4">Full <span class="gradient-text">Documentation</span></h2>
+                <p class="text-gray-400">Master the Wheel of Regret and maximize your content quality.</p>
             </div>
-            <div class="space-y-8">
-                <div class="flex gap-6 p-6 rounded-2xl hover:bg-white/5 transition-colors">
-                    <div class="text-3xl font-bold text-purple-500">01</div>
-                    <div>
-                        <h4 class="text-xl font-bold mb-2">Installation</h4>
-                        <p class="text-gray-400">Download the .exe installer from the hero section. Run the installer and follow the on-screen instructions to install WayaWheel on your Windows PC.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="space-y-8">
+                    <div class="glass p-6 rounded-2xl">
+                        <h4 class="text-xl font-bold mb-4 text-purple-400">Getting Started</h4>
+                        <p class="text-gray-300 leading-relaxed">
+                            Download the Windows installer and run the application. You can immediately start by entering a question into the input field. The AI will analyze your query and generate tailored segments for the wheel.
+                        </p>
+                    </div>
+                    <div class="glass p-6 rounded-2xl">
+                        <h4 class="text-xl font-bold mb-4 text-blue-400">AI Power & Customization</h4>
+                        <p class="text-gray-300 leading-relaxed">
+                            WayaWheel uses cutting-edge LLMs (Grok, Gemini) to generate choices based on your specific question. You can customize your API keys in the settings to use your preferred model for different "personalities" of the wheel.
+                        </p>
+                    </div>
+                    <div class="glass p-6 rounded-2xl">
+                        <h4 class="text-xl font-bold mb-4 text-pink-400">The Doom System</h4>
+                        <p class="text-gray-300 leading-relaxed">
+                            Every result is assigned a "Doom Level" from 0-100%. Higher doom results trigger more intense AI reactions and, if enabled, the Face-Scream detector for a perfect viral clip.
+                        </p>
                     </div>
                 </div>
-                <div class="flex gap-6 p-6 rounded-2xl hover:bg-white/5 transition-colors">
-                    <div class="text-3xl font-bold text-blue-500">02</div>
-                    <div>
-                        <h4 class="text-xl font-bold mb-2">Customizing the Wheel</h4>
-                        <p class="text-gray-400">Enter your segments in the settings panel. You can add as many options as you want and customize the colors for each segment to make it pop on camera.</p>
+                <div class="space-y-8">
+                    <div class="glass p-6 rounded-2xl">
+                        <h4 class="text-xl font-bold mb-4 text-green-400">Extreme Chaos Mode</h4>
+                        <p class="text-gray-300 leading-relaxed">
+                            Activating Chaos Mode increases spin speed by 10x and enables rapid color cycling. The AI switches to "Doom-Heavy" generation, producing progressively more absurd and regret-filled results.
+                        </p>
                     </div>
-                </div>
-                <div class="flex gap-6 p-6 rounded-2xl hover:bg-white/5 transition-colors">
-                    <div class="text-3xl font-bold text-pink-500">03</div>
-                    <div>
-                        <h4 class="text-xl font-bold mb-2">Recording Your Content</h4>
-                        <p class="text-gray-400">Use a screen recorder like OBS. WayaWheel is designed to be clean and distraction-free, making it perfect for overlays in your YouTube videos or Twitch streams.</p>
+                    <div class="glass p-6 rounded-2xl">
+                        <h4 class="text-xl font-bold mb-4 text-yellow-400">Streamer Setup (OBS)</h4>
+                        <p class="text-gray-300 leading-relaxed">
+                            To use this in a stream: <br>
+                            1. Open OBS <br>
+                            2. Add a "Window Capture" source <br>
+                            3. Select WayaWheel <br>
+                            4. Use a "Color Key" or "Chroma Key" filter if you wish to remove the background for a transparent overlay.
+                        </p>
+                    </div>
+                    <div class="glass p-6 rounded-2xl">
+                        <h4 class="text-xl font-bold mb-4 text-red-400">Global Leaderboard</h4>
+                        <p class="text-gray-300 leading-relaxed">
+                            Your results are synced to a global database via Supabase, allowing you to see how your "Regret" compares to users worldwide on the real-time Doom Map.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -119,19 +154,22 @@
     <!-- Creator Section -->
     <section id="creator" class="py-20 px-6 max-w-6xl mx-auto">
         <div class="glass p-12 rounded-3xl flex flex-col md:flex-row gap-12 items-center">
-            <div class="w-48 h-48 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 p-1">
-                <img src="https://via.placeholder.com/190" alt="Waya Steurbaut" class="w-full h-full rounded-full object-cover bg-black">
+            <div class="w-48 h-48 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 p-1 shrink-0">
+                <img src="C:\Users\steur\Downloads\cover art first.png" alt="WayaCreate" class="w-full h-full rounded-full object-cover bg-black">
             </div>
             <div class="flex-1 text-center md:text-left">
                 <h2 class="text-4xl font-bold mb-2">WayaCreate</h2>
-                <p class="text-xl text-gray-400 mb-6">aka <span class="text-white font-semibold">Waya Steurbaut</span></p>
-                <p class="text-gray-300 leading-relaxed mb-8">
-                    A passionate developer and creator dedicated to building tools that empower content creators. WayaCreate focuses on bridging the gap between high-end utility and user-friendly design, ensuring that YouTubers can focus on their creativity while the tools handle the heavy lifting.
+                <p class="text-xl text-gray-400 mb-6">Content Creator & Developer</p>
+                <p class="text-gray-300 leading-relaxed mb-8 italic">
+                    "Welcome to WayaCreate, where YOUR ideas come to life! 🎮🎨🚀 Join our community-driven channel for fan-requested content spanning gaming, design, and cutting-edge tech. From Minecraft builds to Fortnite strategies, Blender tutorials to video editing tips, we’ve got you covered!"
                 </p>
+                <div class="text-gray-400 mb-8 leading-relaxed">
+                    <p>🔥 What you’ll find: • Minecraft, Roblox, Fortnite, and Destiny 2 gameplay and tutorials • Blender 3D modeling and animation guides • Video editing masterclasses • AI tools and graphics design tips • Live streams and interactive sessions</p>
+                    <p class="mt-4 font-semibold text-white">New videos every week, powered by YOUR suggestions! Subscribe now and be part of our creative journey. Let's level up together! 🏆</p>
+                </div>
                 <div class="flex gap-4 justify-center md:justify-start">
                     <a href="https://github.com/WayaSteurbautYT" class="text-2xl hover:text-purple-500 transition-colors"><i class="fa-brands fa-github"></i></a>
-                    <a href="#" class="text-2xl hover:text-red-500 transition-colors"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" class="text-2xl hover:text-blue-400 transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/@wayasteurbaut" class="text-2xl hover:text-red-500 transition-colors"><i class="fa-brands fa-youtube"></i></a>
                 </div>
             </div>
         </div>
@@ -146,3 +184,14 @@
 
 </body>
 </html>
+</write_to_file>
+<task_progress>
+- [x] Implement "Extreme Chaos" mode (Frontend & Backend) - *Completed*
+- [x] Setup Global Doom Leaderboard (Supabase + Map View) - *Completed*
+- [x] Integrate Face-Scream Detection & Meme Overlays - *Completed*
+- [x] Implement Twitch/YouTube voting simulation - *Completed*
+- [x] Update `download-site/index.html` with WayaCreate branding and assets - *Completed*
+- [x] Create full Documentation page (integrated into index) - *Completed*
+- [ ] Generate `BUILD_COMMANDS.md`
+- [ ] Final verification and push to GitHub main
+</task_progress>

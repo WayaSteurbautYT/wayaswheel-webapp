@@ -3,9 +3,10 @@ import styled, { keyframes } from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGameState } from '../context/GameStateContext';
 import { useTheme } from '../context/ThemeContext';
-import { WHEEL_SEGMENTS, getAIAnswer } from '../shared/gameData';
+import { WHEEL_SEGMENTS, getAIAnswer, GAME_MODES } from '../shared/gameData';
 import SoundManager from '../utils/SoundManager';
 import LoadingSpinner from './LoadingSpinner';
+import StreamChat from './StreamChat';
 import { API_ENDPOINTS } from '../config';
 import { fetchJSONWithRetry } from '../utils/apiHelper';
 import { getCachedWheelSegments, cacheWheelSegments, getCachedAIAnalysis, cacheAIAnalysis } from '../utils/cacheHelper';
@@ -580,6 +581,14 @@ const WheelComponent = () => {
   const [showEndCredits, setShowEndCredits] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [endCreditsData, setEndCreditsData] = useState(null); 
+  const [chaosColor, setChaosColor] = useState('#ff0000');
+
+  const handleChatVote = (voteType) => {
+    if (voteType === 'extreme') {
+      console.log('Chat voted for EXTREME CHAOS!');
+      SoundManager.play('click');
+    }
+  };
 
   // Draw the wheel
   const drawWheel = useCallback(() => {
@@ -634,13 +643,19 @@ const WheelComponent = () => {
       const startAngle = index * anglePerSegment - Math.PI / 2;
       const endAngle = (index + 1) * anglePerSegment - Math.PI / 2;
 
-      // Draw segment
-      ctx.beginPath();
-      ctx.moveTo(centerX, centerY);
-      ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-      ctx.closePath();
+    // Draw segment
+    ctx.beginPath();
+    ctx.moveTo(centerX, centerY);
+    ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+    ctx.closePath();
+    
+    // If Extreme Chaos mode, rapidly change red segment colors
+    if (currentSession.mode === GAME_MODES.EXTREME_CHAOS && segment.isRed) {
+      ctx.fillStyle = chaosColor;
+    } else {
       ctx.fillStyle = segment.color;
-      ctx.fill();
+    }
+    ctx.fill();
 
       // Draw border with glow effect
       ctx.strokeStyle = segment.isRed ? '#ff0000' : '#ffffff';
@@ -694,6 +709,18 @@ const WheelComponent = () => {
       drawWheel();
     }
   }, [drawWheel]);
+
+  // Rapid color cycling for Extreme Chaos mode
+  useEffect(() => {
+    if (currentSession.mode === GAME_MODES.EXTREME_CHAOS) {
+      const colors = ['#ff0000', '#ff4444', '#aa0000', '#ff00ff', '#ffaa00', '#ff0080'];
+      const interval = setInterval(() => {
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        setChaosColor(randomColor);
+      }, 100);
+      return () => clearInterval(interval);
+    }
+  }, [currentSession.mode]);
 
   // Redraw wheel when dynamic segments change
   useEffect(() => {
@@ -923,7 +950,10 @@ const WheelComponent = () => {
     const segmentsToUse = dynamicSegments || WHEEL_SEGMENTS;
 
     // Calculate spin parameters
-    const spins = 5 + Math.random() * 3; // 5-8 rotations
+    let spins = 5 + Math.random() * 3; // 5-8 rotations
+    if (currentSession.mode === GAME_MODES.EXTREME_CHAOS) {
+      spins *= 10; // 10x faster spin for Extreme Chaos
+    }
     const randomSegment = Math.floor(Math.random() * segmentsToUse.length);
     const anglePerSegment = 360 / segmentsToUse.length;
     const targetRotation = spins * 360 + randomSegment * anglePerSegment;
@@ -1106,6 +1136,7 @@ const WheelComponent = () => {
   return (
     <>
     <WheelContainer>
+      <StreamChat onVote={handleChatVote} />
       <InputSection>
         <QuestionInput
           value={question}

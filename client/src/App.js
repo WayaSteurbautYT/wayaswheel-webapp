@@ -12,6 +12,7 @@ import AuthScreen from './components/AuthScreen';
 import ModelSelection from './components/ModelSelection';
 import DeviceCheckScreen from './components/DeviceCheckScreen';
 import ViewRegretsScreen from './components/ViewRegretsScreen';
+import DoomLeaderboard from './components/DoomLeaderboard';
 import ErrorBoundary from './components/ErrorBoundary';
 import SoundManager from './utils/SoundManager';
 import { GameStateProvider, useGameState } from './context/GameStateContext';
@@ -190,10 +191,12 @@ const AppContent = () => {
         <WheelComponent key="wheel" />
       ) : currentScreen === 'results' ? (
         <ResultsScreen key="results" />
-      ) : currentScreen === 'credits' ? (
-        <CreditsScreen key="credits" />
-      ) : (
-        <MainMenu key="main" onOpenSettings={() => setShowModelSelection(true)} />
+       ) : currentScreen === 'credits' ? (
+         <CreditsScreen key="credits" />
+       ) : currentScreen === 'leaderboard' ? (
+         <DoomLeaderboard key="leaderboard" />
+       ) : (
+         <MainMenu key="main" onOpenSettings={() => setShowModelSelection(true)} />
       )}
       </AnimatePresence>
     </AppContainer>

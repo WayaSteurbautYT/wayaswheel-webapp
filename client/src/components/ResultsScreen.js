@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useGameState } from '../context/GameStateContext';
 import SoundManager from '../utils/SoundManager';
+import MemeOverlay from './MemeOverlay';
+import { useScreamDetector } from '../hooks/useScreamDetector';
 import { MEME_GIFS } from '../shared/gameData';
 import { spinsToCSV, downloadCSV, spinsToJSON, downloadJSON } from '../utils/exportHelper';
 import { shareToTwitter, shareToFacebook, shareToReddit, copyToClipboard, generateShareText, generateShareUrl } from '../utils/shareHelper';
@@ -243,6 +245,7 @@ const ActionButton = styled(motion.button)`
 
 const ResultsScreen = () => {
   const { currentSession, resetGame, setScreen, username } = useGameState();
+  const { isScreaming } = useScreamDetector();
 
   React.useEffect(() => {
     // Play appropriate sound based on regret level
@@ -334,6 +337,7 @@ const ResultsScreen = () => {
 
   return (
     <ResultsContainer>
+      <MemeOverlay isActive={isScreaming && regretLevel >= 70} doomLevel={regretLevel} />
       <ResultsCard
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}

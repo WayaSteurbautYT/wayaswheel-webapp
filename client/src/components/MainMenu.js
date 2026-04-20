@@ -256,6 +256,11 @@ const MainMenu = ({ onOpenSettings }) => {
     setScreen('view-regrets');
   };
 
+  const handleViewLeaderboard = () => {
+    SoundManager.play('click');
+    setScreen('leaderboard');
+  };
+
   const handleDailyChallenge = () => {
     SoundManager.play('click');
     if (dailyChallenge) {
@@ -379,14 +384,23 @@ const MainMenu = ({ onOpenSettings }) => {
           🎮 Start Your Journey 🎮
         </MenuButton>
 
-        <SecondaryButton
-          onClick={handleViewRegrets}
-          onHoverStart={() => SoundManager.play('hover')}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-        >
-          ð View Your Regrets ð
-        </SecondaryButton>
+         <SecondaryButton
+           onClick={handleViewRegrets}
+           onHoverStart={() => SoundManager.play('hover')}
+           whileHover={{ scale: 1.02 }}
+           whileTap={{ scale: 0.98 }}
+         >
+           ð View Your Regrets ð
+         </SecondaryButton>
+
+         <SecondaryButton
+           onClick={handleViewLeaderboard}
+           onHoverStart={() => SoundManager.play('hover')}
+           whileHover={{ scale: 1.02 }}
+           whileTap={{ scale: 0.98 }}
+         >
+           🌎 Global Doom Leaderboard 🌎
+         </SecondaryButton>
 
         <SecondaryButton
           onClick={handleCredits}

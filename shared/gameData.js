@@ -5,7 +5,8 @@ export const GAME_MODES = {
   CHAOS: 'Chaos Chain',
   FATE: 'Wheel of Fate',
   RAPID: 'Rapid Fire',
-  ELIMINATION: 'AI Elimination'
+  ELIMINATION: 'AI Elimination',
+  EXTREME_CHAOS: 'Extreme Chaos'
 };
 
 export const WHEEL_SEGMENTS = [
@@ -78,7 +79,8 @@ export const GAME_MODE_DATA = {
   [GAME_MODES.CHAOS]: { name: "Chaos Chain", description: "6 spins of escalating doom", maxSpins: 6, icon: "Chaos" },
   [GAME_MODES.FATE]: { name: "Wheel of Fate", description: "The wheel knows who you are", maxSpins: 6, icon: "Fate" },
   [GAME_MODES.RAPID]: { name: "Rapid Fire", description: "Auto-spin madness", maxSpins: 6, icon: "Rapid" },
-  [GAME_MODES.ELIMINATION]: { name: "AI Elimination", description: "AI eliminates players one by one", maxSpins: 10, icon: "Elimination", isMultiplayer: true }
+  [GAME_MODES.ELIMINATION]: { name: "AI Elimination", description: "AI eliminates players one by one", maxSpins: 10, icon: "Elimination", isMultiplayer: true },
+  [GAME_MODES.EXTREME_CHAOS]: { name: "Extreme Chaos", description: "10x Speed, Rapid Colors, Pure Doom", maxSpins: 10, icon: "Extreme" }
 };
 
 export const generateId = () => Math.random().toString(36).substr(2, 9);
@@ -115,6 +117,7 @@ export const calculateFinalScore = (spins, gameMode) => {
     [GAME_MODES.CHAOS]: 2,
     [GAME_MODES.FATE]: 1.5,
     [GAME_MODES.RAPID]: 1.2,
+    [GAME_MODES.EXTREME_CHAOS]: 5,
     [GAME_MODES.CLASSIC]: 1
   }[gameMode] || 1;
   

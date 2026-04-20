@@ -441,7 +441,8 @@ router.post('/save-result', async (req, res) => {
         result: result,
         doom: doom,
         answer: answer,
-        spin_index: 0
+        spin_index: 0,
+        location: req.body.location || 'Unknown'
       })
       .select()
       .single();
@@ -471,6 +472,48 @@ router.post('/save-result', async (req, res) => {
     res.status(500).json({
       success: false,
       error: 'Failed to save game result'
+    });
+  }
+});
+
+// GET /api/game/global-doom - Get aggregated doom levels by location
+router.get('/global-doom', async (req, res) => {
+  try {
+    const supabase = require('../supabase/client');
+
+    const { data, error } = await supabase
+      .from('spins')
+      .select('location, doom')
+      .orderBy('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    const doomMap = {};
+    data.forEach(spin => {
+      const loc = spin.location || 'Unknown';
+      if (!doomMap[loc]) {
+        doomMap[loc] = { totalDoom: 0, count: 0 };
+      }
+      doomMap[loc].totalDoom += spin.doom;
+      doomMap[loc].count += 1;
+    });
+
+    const leaderboard = Object.keys(doomMap).map(loc => ({
+      location: loc,
+      totalDoom: doomMap[loc].totalDoom,
+      avgDoom: Math.round(doomMap[loc].totalDoom / doomMap[loc].count),
+      count: doomMap[loc].count
+    })).sort((a, b) => b.totalDoom - a.totalDoom);
+
+    res.json({
+      success: true,
+      leaderboard
+    });
+  } catch (error) {
+    console.error('Fetch global doom failed:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch global doom data'
     });
   }
 });

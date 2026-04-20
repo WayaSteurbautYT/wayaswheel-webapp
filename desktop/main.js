@@ -3,8 +3,11 @@ const path = require('path');
 const Store = require('electron-store');
 const { spawn } = require('child_process');
 const fs = require('fs');
+const { SteamManager, AchievementTracker } = require('./steam_integration');
 
 const store = new Store();
+const steamManager = new SteamManager();
+const achievementTracker = new AchievementTracker(steamManager);
 
 let mainWindow;
 let serverProcess;
@@ -58,6 +61,7 @@ function createWindow() {
     height: 900,
     minWidth: 1024,
     minHeight: 768,
+    frame: false, // Steam-like custom frame
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
@@ -93,6 +97,9 @@ function createWindow() {
 }
 
 app.whenReady().then(async () => {
+  // Initialize Steam Integration
+  await steamManager.initialize();
+  
   // Check for Ollama
   const ollamaCheck = await checkOllama();
   store.set('ollamaInstalled', ollamaCheck.installed);
@@ -178,6 +185,41 @@ ipcMain.handle('close-window', () => {
 
 ipcMain.handle('open-external', (event, url) => {
   shell.openExternal(url);
+});
+
+// Steam achievement handlers
+ipcMain.handle('track-spin', (event, doomLevel) => {
+  achievementTracker.trackSpin(doomLevel);
+  return { success: true };
+});
+
+ipcMain.handle('track-game-complete', (event, gameData) => {
+  achievementTracker.trackGameComplete(
+    gameData.gameMode,
+    gameData.finalScore,
+    gameData.totalDoom
+  );
+  return { success: true };
+});
+
+ipcMain.handle('track-multiplayer-join', () => {
+  achievementTracker.trackMultiplayerJoin();
+  return { success: true };
+});
+
+ipcMain.handle('track-room-host', () => {
+  achievementTracker.trackRoomHost();
+  return { success: true };
+});
+
+ipcMain.handle('track-custom-mode', () => {
+  achievementTracker.trackCustomModeCreated();
+  return { success: true };
+});
+
+ipcMain.handle('track-vote', () => {
+  achievementTracker.trackVoteParticipation();
+  return { success: true };
 });
 
 // Auto-updater (for future use)

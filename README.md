@@ -2,6 +2,26 @@
 
 A complete web implementation of Waya's Wheel of Regret Unity game, built with React, Node.js, and modern web technologies.
 
+## ð Current Status (April 2026)
+
+### Recently Added
+- **Guest Login Fixed**: Fixed page refresh issue with "Continue as Guest" button
+- **AI Settings Page**: Added AI model and API key configuration in Settings for guest users
+- **Environment Variable Fallback**: Server now uses environment variables (GROK_API_KEY, GEMINI_API_KEY) when no API key provided
+- **Removed Ollama**: Cleaned up old Ollama references from settings
+- **Fallback AI Generation**: Added fallback wheel segments when AI generation fails
+
+### Known Issues
+- **AI Generation Not Working**: Core AI system is not generating wheel segments or responses. The server receives requests but AI API calls fail, falling back to static segments.
+- **Settings Page**: AI settings added but may not be reflected in browser due to caching
+- **Backend Server**: Local server works but Render deployment still has issues with module resolution
+
+### Needs Work
+- Fix AI API integration (Grok/Gemini API calls failing)
+- Test and fix settings page API key persistence
+- Resolve Render deployment issues
+- Complete AI response system for spin results
+
 ## ð Features
 
 ### Core Game Mechanics

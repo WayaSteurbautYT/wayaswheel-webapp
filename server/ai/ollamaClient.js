@@ -109,7 +109,16 @@ class OllamaClient {
 
       return response.data;
     } catch (error) {
-      throw new Error(`Generation failed: ${error.message}`);
+      if (error.response && error.response.status === 404) {
+        console.warn(`Model ${model} not found. Attempting to find a fallback...`);
+        const availableModels = await this.getAvailableModels();
+        if (availableModels.length > 0) {
+          const fallbackModel = availableModels[0].name;
+          console.log(`Using fallback model: ${fallbackModel}`);
+          return this.generate(fallbackModel, prompt, options);
+        }
+      }
+      throw new Error(`Generation failed with model ${model}: ${error.message}`);
     }
   }
 

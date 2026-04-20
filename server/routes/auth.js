@@ -364,27 +364,6 @@ router.post('/check-session', async (req, res) => {
     }
 
     if (sessionError || !session) {
-      // If logged_in table doesn't exist, check localStorage for guest tokens
-      if (token.startsWith('guest_')) {
-        const userStr = localStorage?.getItem('user');
-        if (userStr) {
-          const user = JSON.parse(userStr);
-          if (user.is_guest && token === localStorage?.getItem('token')) {
-            return res.json({
-              success: true,
-              user: {
-                id: null,
-                email: user.username,
-                user_metadata: {
-                  username: user.username
-                }
-              },
-              is_guest: true,
-              token: token
-            });
-          }
-        }
-      }
       return res.status(401).json({
         error: 'Invalid session'
       });

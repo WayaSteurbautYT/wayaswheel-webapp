@@ -227,7 +227,7 @@ User clicks spin → Frontend sends request → Backend processes → AI generat
 ### ✅ Implemented
 - User authentication (signup, login, guest)
 - 4 game modes (Classic, Chaos, Fate, Rapid)
-- AI-powered wheel generation
+- AI-powered wheel generation (with fallback)
 - Wheel spinning animation
 - Doom level calculation
 - Results screen with meme GIFs
@@ -235,7 +235,26 @@ User clicks spin → Frontend sends request → Backend processes → AI generat
 - Volume controls
 - Spin history tracking
 - Responsive design
-- Multiple AI model support
+- Multiple AI model support (Grok, Gemini, OpenAI, Groq)
+- AI Settings page for guest users
+- Environment variable API key fallback
+- Guest login fixes (no page refresh)
+- Optional logged_in table for guest sessions
+
+### ⚠️ Known Issues
+- **AI Generation Not Working**: Core AI system fails to generate wheel segments and responses. Server receives requests but AI API calls fail, falling back to static segments.
+- **Settings Page Caching**: AI settings added to Settings page but may not reflect immediately in browser due to caching.
+- **Render Deployment**: Backend deployment to Render fails with module resolution issues despite multiple configuration attempts.
+
+### 🔧 Recent Changes (April 2026)
+- Fixed guest button page refresh issue by adding e.preventDefault()
+- Made logged_in table operations optional in auth routes for better compatibility
+- Added AI model and API key configuration to Settings page for all users (including guests)
+- Removed Ollama from AI model options in settings
+- Added Grok and Gemini API keys to server environment variables
+- Updated AI routes to use environment variables as fallback when no API key provided by client
+- Fixed AI generation fallback to return JSON format instead of simple string
+- Removed backend error message from WheelComponent to improve UX
 
 ### 🔧 Technical Features
 - Centralized API configuration
